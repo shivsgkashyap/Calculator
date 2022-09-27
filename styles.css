@@ -1,0 +1,168 @@
+:root {
+  --background: #e0e0e0;
+  --font: #2c3345;
+  --border: black;
+  --screen: #eee;
+  --calculator: #aaa;
+  --btn: #eee;
+  --btn-hover: #ddd;
+  --btn-active: #ccc;
+  --btn-red: #faa;
+  --btn-red-hover: #e99;
+  --btn-red-active: #d88;
+  --btn-blue: #aaf;
+  --btn-blue-hover: #99e;
+  --btn-blue-active: #88d;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  margin: 0;
+  font-family: "Poppins", Inter, Avenir, Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  background-color: var(--background);
+  color: var(--font);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 75vh;
+  min-height: 31em;
+  padding: 0.6em;
+  margin-top: 3em;
+}
+
+.calculator {
+  width: 25em;
+  border: 2px solid var(--border);
+  border-radius: 1em;
+  padding: 1.25em;
+  background-color: var(--calculator);
+  display: flex;
+  flex-direction: column;
+}
+
+.screen {
+  padding: 10px 20px;
+  min-height: 8em;
+  border: 2px solid var(--border);
+  border-radius: 0.5em;
+  margin-bottom: 1em;
+  background-color: var(--screen);
+  text-align: right;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+.screen-last {
+  min-height: 2em;
+  font-size: 1.25rem;
+}
+
+.screen-current {
+  min-height: 1em;
+  font-size: 3rem;
+}
+
+.buttons-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 10px;
+}
+
+.clear-btn,
+.del-btn {
+  grid-column: span 2;
+}
+
+button {
+  padding: 20px;
+  border: 2px var(--border) solid;
+  border-radius: 5px;
+  background-color: var(--btn);
+  font-size: 20px;
+  border: none;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  cursor: pointer;
+  outline: none;
+}
+
+button:hover {
+  background-color: var(--btn-hover);
+}
+
+button:active {
+  background-color: var(--btn-active);
+}
+
+.clear-btn {
+  background-color: var(--btn-red);
+}
+
+.clear-btn:hover {
+  background-color: var(--btn-red-hover);
+}
+
+.clear-btn:active {
+  background-color: var(--btn-red-active);
+}
+
+.del-btn {
+  background-color: var(--btn-blue);
+}
+
+.del-btn:hover {
+  background-color: var(--btn-blue-hover);
+}
+
+.del-btn:active {
+  background-color: var(--btn-blue-active);
+}
+
+footer {
+  display: flex;
+  background-color: black;
+  justify-content: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0.5em;
+  font-weight: 100;
+}
+
+footer p {
+  color: white;
+}
+
+footer a {
+  align-self: center;
+  margin-left: 0.5em;
+}
+
+footer img {
+  height: 1.5em;
+  width: 1.5em;
+  transition: transform 0.3s ease-in-out;
+}
+
+footer img:hover {
+  transform: rotate(360deg) scale(1.2);
+}
