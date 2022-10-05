@@ -14,12 +14,14 @@ console.log(currentOperator);
 function render() {
   initialValueDisplay.innerText = currentValue;
   runningValueDisplay.innerText = runningValue;
-  console.log(runningValue);
+  console.log(currentValue);
 }
 
 selectedNumber.forEach((number) => {
   number.addEventListener("click", (e) => {
-    currentValue = currentValue + e.target.innerText;
+    currentValue
+      ? (currentValue = currentValue + e.target.innerText)
+      : (currentValue = e.target.innerText);
     runningValue = runningValue + e.target.innerText;
     render();
   });
@@ -35,7 +37,7 @@ selectedOperator.forEach((operator) => {
 });
 
 clearBtn.addEventListener("click", () => {
-  currentValue = "";
+  currentValue = 0;
   runningValue = "";
   render();
 });
