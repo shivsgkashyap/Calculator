@@ -18,7 +18,7 @@ clearButton.addEventListener("click", clear);
 deleteButton.addEventListener("click", deleteNumber);
 pointButton.addEventListener("click", appendPoint);
 
-umberButtons.forEach((button) =>
+numberButtons.forEach((button) =>
   button.addEventListener("click", () => appendNumber(button.textContent))
 );
 
@@ -79,6 +79,7 @@ function evaluate() {
   );
   lastOperationScreen.textContent = `${firstOperand} ${currentOperation} ${secondOperand} =`;
   currentOperation = null;
+  shouldResetScreen = true;
 }
 
 function roundResult(number) {
