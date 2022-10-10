@@ -1,15 +1,16 @@
-const initialValueDisplay = document.querySelector(".screen-current");
-const runningValueDisplay = document.querySelector(".screen-last");
-const selectedNumber = document.querySelectorAll("[data-number]");
-const selectedOperator = document.querySelectorAll("[data-operator]");
-const clearBtn = document.querySelector(".clear-btn");
-const delBtn = document.querySelector(".del-btn");
+const currentOperationScreen = document.querySelector(".screen-current");
+const lastOperationScreen = document.querySelector(".screen-last");
+const numberButtons = document.querySelectorAll("[data-number]");
+const operatorButtons = document.querySelectorAll("[data-operator]");
+const clearButton = document.querySelector(".clear-btn");
+const deleteButton = document.querySelector(".del-btn");
 const equalsButton = document.getElementById("equalsBtn");
 const pointButton = document.getElementById("pointBtn");
 
-let currentValue = 0;
-let runningValue = "";
-let currentOperator = "";
+let firstOperand = "";
+let secondOperand = "";
+let currentOperation = null;
+let shouldResetScreen = false;
 
 window.addEventListener("keydown", handleKeyboardInput);
 equalsButton.addEventListener("click", evaluate);
@@ -17,45 +18,65 @@ clearButton.addEventListener("click", clear);
 deleteButton.addEventListener("click", deleteNumber);
 pointButton.addEventListener("click", appendPoint);
 
-function render() {
-  initialValueDisplay.innerText = currentValue;
-  runningValueDisplay.innerText = runningValue;
-  console.log(currentValue);
+umberButtons.forEach((button) =>
+  button.addEventListener("click", () => appendNumber(button.textContent))
+);
+
+operatorButtons.forEach((button) =>
+  button.addEventListener("click", () => setOperation(button.textContent))
+);
+
+function appendNumber(number) {
+  if (currentOperationScreen.textContent === "0" || shouldResetScreen)
+    resetScreen();
+  currentOperationScreen.textContent += number;
 }
 
-selectedNumber.forEach((number) => {
-  number.addEventListener("click", (e) => {
-    currentValue
-      ? (currentValue = currentValue + e.target.innerText)
-      : (currentValue = e.target.innerText);
-    runningValue = runningValue + e.target.innerText;
-    if (initialValueDisplay.textContent.includes(".")) return;
-    render();
-  });
-});
-
-selectedOperator.forEach((operator) => {
-  operator.addEventListener("click", (e) => {
-    currentOperator = e.target.innerText;
-    runningValue = `${runningValue} ${e.target.innerText} `;
-    currentValue = 0;
-    render();
-  });
-});
+function resetScreen() {
+  currentOperationScreen.textContent = "";
+  shouldResetScreen = false;
+}
 
 function clear() {
-  currentValue = 0;
-  runningValue = "";
-  render();
+  currentOperationScreen.textContent = "0";
+  lastOperationScreen.textContent = "";
+  firstOperand = "";
+  secondOperand = "";
+  currentOperation = null;
 }
 
-function deleteNumber {
-  if (currentValue) {
-    currentValue = currentValue.slice(0, -1);
-    runningValue = runningValue.slice(0, -1);
-  } else {
-    runningValue = runningValue.slice(0, -2);
+function appendPoint() {
+  if (shouldResetScreen) resetScreen();
+  if (currentOperationScreen.textContent === "")
+    currentOperationScreen.textContent = "0";
+  if (currentOperationScreen.textContent.includes(".")) return;
+  currentOperationScreen.textContent += ".";
+}
+
+function deleteNumber() {
+  currentOperationScreen.textContent = currentOperationScreen.textContent
+    .toString()
+    .slice(0, -1);
+}
+
+function setOperation(operator) {
+  if (currentOperation !== null) evaluate();
+  firstOperand = currentOperationScreen.textContent;
+  currentOperation = operator;
+  lastOperationScreen.textContent = `${firstOperand} ${currentOperation}`;
+  shouldResetScreen = true;
+}
+
+function evaluate() {
+  if (currentOperation === null || shouldResetScreen) return;
+  if (currentOperation === "÷" && currentOperationScreen.textContent === "0") {
+    alert("You can't divide by 0!");
+    return;
   }
-  render();
+  secondOperand = currentOperationScreen.textContent;
+  currentOperationScreen.textContent = roundResult(
+    operate(currentOperation, firstOperand, secondOperand)
+  );
+  lastOperationScreen.textContent = `${firstOperand} ${currentOperation} ${secondOperand} =`;
+  currentOperation = null;
 }
-
