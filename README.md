@@ -10,4 +10,4 @@ It can be controlled by a mouse or by a keyboard.
 * Keyboard inputs are supported for numbers, opertaors and other options.
 * Comes with options to __clear/delete__ a single input (backspace) OR __clear__ the whole display.
 
-[Live Demo](https://ssgkashyap.github.io/calculator/) :point_left:
+[Live Demo](https://shivsgkashyap.github.io/calculator/) :point_left:
